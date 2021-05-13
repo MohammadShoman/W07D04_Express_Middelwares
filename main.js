@@ -3,37 +3,65 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+//   Q4
+app.use(express.json())
 
+const users = ["John", "Mark"];
 //Q1
-const logUsers=(req, res, next)=>{
-    console.log(users)
-    next();
-}
+const logUsers = (req, res, next) => {
+  console.log(users);
+  next();
+};
 
 //Q2
-app.use(logUsers)
+app.use(logUsers);
 
 //Q3
 
-const logMethod=(req, res, next)=>{
-console.log(req.method)
-next();
-}
-//Q4
-app.use(express.json());
-
-//Q5
-
-
-const users = ["John", "Mark"];
-
-app.get("/users",logMethod, (req, res, next) => {
-  res.json(users);
+const logMethod = (req, res, next) => {
+    console.log(req.method);
+    next();
+};
+  
+  //Q5
+//   app.use((req, res, next)=>{
+//       if (users.length === 0) {
+//           const err = new Error("No users");
+//           err.status = 404;
+//           next(err)
+//         }
+//   })
+  
+  
+  
+app.get("/users", logMethod, (req, res, next) => {
+    if (users.length === 0) {
+        const err = new Error("No users");
+        err.status = 500;
+        next(err)
+    }
+    res.json(users);
 });
+  
+ 
 
 
+app.use((err, req, res, next) => {
+// set the status code
+    res.status(err.status);
+// send the response in JSON format
+    res.json({
+        error: {
+        status: err.status,
+        message: err.message,
+        },
+    });
+});
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`)
 });
+
+
+
