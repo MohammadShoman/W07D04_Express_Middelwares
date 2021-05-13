@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+
 //Q1
 const logUsers=(req, res, next)=>{
     console.log(users)
@@ -19,7 +19,10 @@ const logMethod=(req, res, next)=>{
 console.log(req.method)
 next();
 }
+//Q4
+app.use(express.json());
 
+//Q5
 
 
 const users = ["John", "Mark"];
