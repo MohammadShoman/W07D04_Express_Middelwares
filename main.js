@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 //   Q4
-app.use(express.json())
+//app.use(express.json())
 
 const users = ["John", "Mark"];
 //Q1
@@ -57,6 +57,20 @@ app.use((err, req, res, next) => {
         },
     });
 });
+
+//----------------------------------------------------------------------------//
+//Practice 
+//Q1
+const express1=express.Router();
+express1.use((req, res,next)=>{
+    console.log("all users")
+    res.json(users)
+    next();
+}
+)
+
+app.use("/users",express1)
+
 
 
 app.listen(port, () => {
