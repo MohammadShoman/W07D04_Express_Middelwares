@@ -10,7 +10,15 @@ const logUsers=(req, res, next)=>{
     next();
 }
 
+//Q2
+app.use(logUsers)
 
+//Q3
+
+const logMethod=(req, res, next)=>{
+console.log(req.method)
+next();
+}
 
 
 
